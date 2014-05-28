@@ -8,6 +8,7 @@ App.Router.map(function () {
 	this.resource('about');
 	this.resource('posts', function () {
 		this.resource('post',{ path: ':post_slug/:post_id'});
+		this.route('favorites');
 	});
 });
 
@@ -30,10 +31,15 @@ App.PostRoute = Ember.Route.extend({
 	}
 });
 
-App.Post = {};
-App.Post.find = function (id) {
-	return posts.findBy('id', id);
-};
+App.Post = Ember.Object.extend({
+	find: function (id) {
+		return posts.findBy('id',id);
+	}
+});
+
+// App.Post.find = function (id) {
+// 	return posts.findBy('id', id);
+// };
 
 App.PostController = Ember.ObjectController.extend({
 	isEditing: false,
@@ -46,6 +52,16 @@ App.PostController = Ember.ObjectController.extend({
 			this.set('isEditing', false);
 		}
 	}
+});
+
+App.PostsFavoritesRoute = Ember.Route.extend({
+	model: function () {
+		return posts;
+	}
+});
+
+App.PostsFavoritesController = Ember.ArrayController.extend({
+	foo: 'bar'
 });
 
 Ember.Handlebars.helper('date', function (date) {
