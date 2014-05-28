@@ -14,6 +14,10 @@ App.Router.map(function () {
 App.PostsRoute = Ember.Route.extend({
 	model: function () {
 		return posts;
+	},
+	activate: function () {
+		console.log("ACTIVATED Posts route");
+		// $(document).attr('title', 'Posts');
 	}
 });
 
