@@ -1,9 +1,13 @@
 App = Ember.Application.create();
 
+function makeSlug(title) {
+	return title.replace(/ /g, '-');
+}
+
 App.Router.map(function () {
 	this.resource('about');
 	this.resource('posts', function () {
-		this.resource('post',{ path: ':post_id'});
+		this.resource('post',{ path: ':post_slug/:post_id'});
 	});
 });
 
@@ -13,15 +17,16 @@ App.PostsRoute = Ember.Route.extend({
 	}
 });
 
-// App.PostRoute = Ember.Route.extend({
-// 	model: function (params) {
-// 		return posts.findBy('id', params.post_id);
-// 	}
-
-// });
+App.PostRoute = Ember.Route.extend({
+	// model: function (params) {
+	// 	return posts.findBy('slug', params.post_id);
+	// }
+	serialize: function (post) {
+		return { post_slug: makeSlug(post.title), post_id: post.id };
+	}
+});
 
 App.Post = {};
-
 App.Post.find = function (id) {
 	return posts.findBy('id', id);
 };
