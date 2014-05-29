@@ -25,7 +25,7 @@
   </script>
 
   <script type="text/x-handlebars" id="author">
-    <small class="muted">by {{view.name}}</small>
+    {{name}}
   </script>
 
   <script type="text/x-handlebars" id="about">
@@ -48,7 +48,7 @@
             <tr><td>
             {{#link-to 'post' this}}
             {{title}} 
-            <small class="muted">by {{author.name}}</small>
+            <small class="muted">by {{render 'author' author}}</small>
             {{/link-to}}
             </td></tr>
           {{/each}}

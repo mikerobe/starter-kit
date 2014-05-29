@@ -112,12 +112,8 @@ App.PostsFavoritesController = Ember.ArrayController.extend({
 	foo: 'bar'
 });
 
-App.AuthorView = Ember.View.extend({
-	templateName: 'author'	,
-	name: Ember.computed('author.name',function () {
-		return this.get('author').get('name');
-	})
-});
+// App.AuthorController = Ember.ObjectController.extend({
+// });
 
 Ember.Handlebars.helper('date', function (date) {
 	return moment(date).fromNow();
