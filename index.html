@@ -9,6 +9,10 @@
 </head>
 <body>
 
+<script type="text/x-handlebars" id='index'>
+  <h1>{{title}}</h1>
+</script>
+
 
   <script type="text/x-handlebars">
     <div class="navbar">
@@ -36,6 +40,7 @@
 
 
   <script type="text/x-handlebars" id="posts">
+  {{#link-to 'posts.favorites'}}favorites{{/link-to}}
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3">

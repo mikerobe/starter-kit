@@ -1,4 +1,10 @@
-App = Ember.Application.create();
+App = Ember.Application.create({
+	LOG_TRANSITIONS: true
+});
+
+// App.Router.reopen({
+// 	rootURL: '/foobar'
+// });
 
 function makeSlug(title) {
 	return title.replace(/ /g, '-');
@@ -55,7 +61,7 @@ App.Router.map(function () {
 	this.resource('about');
 	this.resource('posts', function () {
 		this.resource('post',{ path: ':post_slug/:post_id'});
-		this.route('favorites');
+		this.route('favorites', {path: '/favs'});
 	});
 });
 
@@ -68,6 +74,12 @@ App.PostsRoute = Ember.Route.extend({
 		// $(document).attr('title', 'Posts');
 	}
 });
+
+App.IndexRoute = Ember.Route.extend({
+	setupController: function (controller) {
+		controller.set('title','my app');
+	}
+})
 
 App.PostRoute = Ember.Route.extend({
 	// model: function (params) {
