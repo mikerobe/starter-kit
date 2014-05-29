@@ -24,6 +24,10 @@
     {{outlet}}
   </script>
 
+  <script type="text/x-handlebars" id="author">
+    <small class="muted">by {{view.name}}</small>
+  </script>
+
   <script type="text/x-handlebars" id="about">
     <div class="about">
       <p>here&quot;s some about content</p>
@@ -43,7 +47,8 @@
           {{#each}}
             <tr><td>
             {{#link-to 'post' this}}
-            {{title}}<small class="muted">by {{author.name}}</small>
+            {{title}} 
+            <small class="muted">by {{author.name}}</small>
             {{/link-to}}
             </td></tr>
           {{/each}}
@@ -61,7 +66,7 @@
   <script type="text/x-handlebars" id="posts/favorites">
   <p>hello favorites {{foo}}</p>
   {{#each}}
-    {{partial 'post'}}
+    {{render 'post' this}}
   {{/each}}
   </script>
 
