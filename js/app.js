@@ -127,6 +127,9 @@ App.PostsNewController = Ember.ObjectController.extend({
 App.IndexRoute = Ember.Route.extend({
 	setupController: function (controller) {
 		controller.set('title','my app');
+	},
+	beforeModel: function () {
+		this.transitionTo('posts');
 	}
 })
 
