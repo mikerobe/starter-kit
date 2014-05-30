@@ -6,6 +6,11 @@
   <link rel="stylesheet" href="css/normalize.css">/
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+  <style type="text/css">
+  .active {
+    font-weight: bold;
+  }
+  </style>
 </head>
 <body>
 
@@ -17,6 +22,17 @@
   <p>hello posts: {{foo}}</p>
 </script>
 
+<script type="text/x-handlebars" id="commits">
+  {{#each}}
+  {{render 'commit' this}}
+  <hr>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars" id="commit">
+  {{title}}
+</script>
+
 
   <script type="text/x-handlebars">
     <div class="navbar">
@@ -25,6 +41,7 @@
         <a class="brand" href='#'>Bloggr</a>
           <li>{{#link-to 'posts'}}Posts{{/link-to}}</li>
           <li>{{#link-to 'about'}}About{{/link-to}}</li>
+          <li>{{#link-to 'commits'}}Commits{{/link-to}}</li>
         </ul>
       </div>
     </div>

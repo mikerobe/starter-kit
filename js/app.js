@@ -2,6 +2,29 @@ App = Ember.Application.create({
 	LOG_TRANSITIONS: true
 });
 
+App.Router.map(function() {
+  this.route('catchall', {path: '/*wildcard'});
+});
+
+// App.ApplicationRoute = Ember.Route.extend({
+// 	actions: {
+// 		error: function (err, transition, originRoute) {
+// 			debugger;
+// 			console.error("args:", arguments);
+// 			return true;
+// 		}
+// 	}
+// });
+
+App.ApplicationRoute = Ember.Route.extend({
+  actions: {
+    error: function () {
+      debugger;
+      console.log("ERROR");
+    }
+  }
+});
+
 // App.Router.reopen({
 // 	rootURL: '/foobar'
 // });
@@ -64,6 +87,7 @@ App.Router.map(function () {
 		this.route('favorites', {path: '/favs'});
 		this.route('new');
 	});
+	this.resource('commits');
 });
 
 App.PostsRoute = Ember.Route.extend({
@@ -73,6 +97,12 @@ App.PostsRoute = Ember.Route.extend({
 	activate: function () {
 		console.log("ACTIVATED Posts route");
 		// $(document).attr('title', 'Posts');
+	}
+});
+
+App.CommitsRoute = Ember.Route.extend({
+	model: function () {
+		return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pulls');
 	}
 });
 
