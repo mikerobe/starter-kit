@@ -112,7 +112,12 @@ App.PostsRoute = Ember.Route.extend({
 
 App.CommitsRoute = Ember.Route.extend({
 	model: function () {
-		return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pulls');
+		return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pullsucker');
+	},
+	actions: {
+		error: function (reason) {
+			console.error("COMMITS ROUTE HANDLED ERROR",arguments);
+		}
 	}
 });
 
