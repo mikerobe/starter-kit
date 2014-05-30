@@ -21,9 +21,11 @@ App.Router.map(function() {
 App.ApplicationRoute = Ember.Route.extend({
   actions: {
     error: function () {
-      debugger;
       console.log("ERROR");
-    }
+    }/*,
+    willTransition: function (transition) {
+    	transition.abort();
+    }*/
   }
 });
 
@@ -96,6 +98,14 @@ App.Router.map(function () {
 	this.resource('commits');
 });
 
+// App.AboutRoute = Ember.Route.extend({
+// 	actions: {
+// 		willTransition: function (transition) {
+// 			transition.abort();
+// 		}
+// 	}
+// });
+
 App.PostsRoute = Ember.Route.extend({
 	model: function () {
 		return posts;
@@ -112,14 +122,23 @@ App.PostsRoute = Ember.Route.extend({
 
 App.CommitsRoute = Ember.Route.extend({
 	model: function () {
-		return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pullsucker');
+		return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pullsucker').then(function (results) {
+			return results;
+		});
 	},
 	actions: {
-		error: function (reason) {
-			console.error("COMMITS ROUTE HANDLED ERROR",arguments);
-		}
+		// error: function (reason) {
+		// 	console.error("COMMITS ROUTE HANDLED ERROR",arguments);
+		// }
+		/*,
+		loading: function (transition, originRoute) {
+
+			return true;
+		}*/
 	}
 });
+
+// App.CommitsLoadingRoute = Ember.Route.Extend({});
 
 App.PostsController = Ember.ArrayController.extend({
 	foo: 'hello from posts controller',
