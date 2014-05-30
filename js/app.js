@@ -1,3 +1,5 @@
+EmberENV = {ENABLE_ALL_FEATURES:true};
+
 App = Ember.Application.create({
 	LOG_TRANSITIONS: true
 });
@@ -115,7 +117,8 @@ App.CommitsRoute = Ember.Route.extend({
 });
 
 App.PostsController = Ember.ArrayController.extend({
-	foo: 'hello from posts controller'
+	foo: 'hello from posts controller',
+	queryParams: ['foo']
 });
 
 App.PostsIndexController = Ember.ArrayController.extend({
@@ -131,10 +134,10 @@ App.PostsNewController = Ember.ObjectController.extend({
 App.IndexRoute = Ember.Route.extend({
 	setupController: function (controller) {
 		controller.set('title','my app');
-	},
-	beforeModel: function () {
-		this.transitionTo('posts');
 	}
+	// beforeModel: function () {
+	// 	this.transitionTo('posts');
+	// }
 })
 
 App.PostRoute = Ember.Route.extend({

@@ -16,6 +16,7 @@
 
 <script type="text/x-handlebars" id='index'>
   <h1>{{title}}</h1>
+  {{#link-to 'posts' (query-params foo='bar')}}Posts with query param{{/link-to}}
 </script>
 
 <script type="text/x-handlebars" id="posts/new">
@@ -67,7 +68,7 @@
 
 
   <script type="text/x-handlebars" id="posts">
-  <p>foo is: {{foo}}</p>
+  <p>foo is: {{input value=foo}}</p>
   {{#link-to 'posts.favorites'}}favorites{{/link-to}}
   {{outlet favorite}}
   <div class="container-fluid">
@@ -137,8 +138,8 @@
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/marked.min.js"></script>
   <script src="js/libs/moment.min.js"></script>
-  <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.5.1.js"></script>
+  <script src="js/libs/handlebars-v1.3.0.js"></script>
+  <script src="js/libs/ember-canary.js"></script>
   <script src="js/app.js"></script>
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
