@@ -29,6 +29,10 @@ App.ApplicationRoute = Ember.Route.extend({
 // 	rootURL: '/foobar'
 // });
 
+// App.Router.reopen({
+// 	location: 'history'
+// });
+
 function makeSlug(title) {
 	return title.replace(/ /g, '-');
 }
