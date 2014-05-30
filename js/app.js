@@ -97,6 +97,10 @@ App.PostsRoute = Ember.Route.extend({
 	activate: function () {
 		console.log("ACTIVATED Posts route");
 		// $(document).attr('title', 'Posts');
+	},
+	renderTemplate: function () {
+		this.render();
+		this.render('post',{outlet: 'favorite', controller: this.controllerFor('post'), model: posts[1]});
 	}
 });
 
