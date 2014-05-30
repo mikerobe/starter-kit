@@ -13,6 +13,10 @@
   <h1>{{title}}</h1>
 </script>
 
+<script type="text/x-handlebars" id="posts/new">
+  <p>hello posts: {{foo}}</p>
+</script>
+
 
   <script type="text/x-handlebars">
     <div class="navbar">
@@ -38,8 +42,15 @@
     </div>
   </script>
 
+  <script type="text/x-handlebars" id="posts/index">
+  <p> just the posts index</p>
+  <p>foo is: {{foo}}</p>
+  </script>
+
+
 
   <script type="text/x-handlebars" id="posts">
+  <p>foo is: {{foo}}</p>
   {{#link-to 'posts.favorites'}}favorites{{/link-to}}
   <div class="container-fluid">
     <div class="row-fluid">

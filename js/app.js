@@ -62,6 +62,7 @@ App.Router.map(function () {
 	this.resource('posts', function () {
 		this.resource('post',{ path: ':post_slug/:post_id'});
 		this.route('favorites', {path: '/favs'});
+		this.route('new');
 	});
 });
 
@@ -73,6 +74,20 @@ App.PostsRoute = Ember.Route.extend({
 		console.log("ACTIVATED Posts route");
 		// $(document).attr('title', 'Posts');
 	}
+});
+
+App.PostsController = Ember.ArrayController.extend({
+	foo: 'hello from posts controller'
+});
+
+App.PostsIndexController = Ember.ArrayController.extend({
+	foo: 'hello from posts *index* controller'
+});
+
+
+
+App.PostsNewController = Ember.ObjectController.extend({
+	foo: 'hello from posts new controller'
 });
 
 App.IndexRoute = Ember.Route.extend({
