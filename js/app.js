@@ -1,8 +1,11 @@
 EmberENV = {ENABLE_ALL_FEATURES:true};
+var attr = DS.attr;
 
 App = Ember.Application.create({
 	LOG_TRANSITIONS: true
 });
+
+App.ApplicationAdapter = DS.FixtureAdapter;
 
 App.Router.map(function() {
   this.route('catchall', {path: '/*wildcard'});
@@ -20,8 +23,8 @@ App.Router.map(function() {
 
 App.ApplicationRoute = Ember.Route.extend({
   actions: {
-    error: function () {
-      console.log("ERROR");
+    error: function (err) {
+      console.log("ERROR",err, err.stack);
     }/*,
     willTransition: function (transition) {
     	transition.abort();
@@ -108,7 +111,8 @@ App.Router.map(function () {
 
 App.PostsRoute = Ember.Route.extend({
 	model: function () {
-		return posts;
+		// return posts;
+		return this.store.find('post');
 	},
 	activate: function () {
 		console.log("ACTIVATED Posts route");
@@ -116,7 +120,7 @@ App.PostsRoute = Ember.Route.extend({
 	},
 	renderTemplate: function () {
 		this.render();
-		this.render('post',{outlet: 'favorite', controller: this.controllerFor('post'), model: posts[1]});
+		this.render('post',{outlet: 'favorite', controller: this.controllerFor('post'), model: this.store.find('post',1)});
 	}
 });
 
@@ -165,11 +169,12 @@ App.IndexRoute = Ember.Route.extend({
 })
 
 App.PostRoute = Ember.Route.extend({
-	// model: function (params) {
-	// 	return posts.findBy('slug', params.post_id);
-	// }
+	model: function (params) {
+		// return posts.findBy('slug', params.post_id);
+		return this.store.find('post', params.post_id);
+	},
 	serialize: function (post) {
-		return { post_slug: makeSlug(post.title), post_id: post.id };
+		return { post_slug: makeSlug(post.get('title')), post_id: post.get('id') };
 	}
 });
 
@@ -179,10 +184,38 @@ App.PostRoute = Ember.Route.extend({
 // 	}
 // });
 
-App.Post = {};
-App.Post.find = function (id) {
-	return posts.findBy('id', id);
-};
+// App.Post = {};
+// App.Post.find = function (id) {
+// 	return posts.findBy('id', id);
+// };
+
+
+App.Post = DS.Model.extend({
+  title: attr(),
+  author: attr(),
+  date: attr(),
+  excerpt: attr(),
+  body: attr()
+});
+
+App.Post.FIXTURES = [
+	{
+		id: '1',
+		title: 'foo bar',
+		author: {name: 'baz'},
+		date: new Date('2012-01-02'),
+		excerpt: 'excerpt',
+		body: 'hello'
+	},
+	{
+		id: '2',
+		title: 'baz bo',
+		author: {name: 'baz'},
+		date: new Date('2012-01-03'),
+		excerpt: 'excerpt again',
+		body: 'hello again'
+	}
+];
 
 App.PostController = Ember.ObjectController.extend({
 	isEditing: false,
@@ -199,7 +232,7 @@ App.PostController = Ember.ObjectController.extend({
 
 App.PostsFavoritesRoute = Ember.Route.extend({
 	model: function () {
-		return posts;
+		return this.store.find("post");
 	},
 	search: 'search value',
 	actions: {
@@ -250,24 +283,3 @@ Ember.Handlebars.helper('marked', function (src) {
 App.ByAuthorComponent = Ember.Component.extend({
 	tagName: 'span'
 });
-
-
-
-var posts = [
-{
-	id: '1',
-	title: 'foo bar',
-	author: {name: 'baz'},
-	date: new Date('2012-01-02'),
-	excerpt: 'excerpt',
-	body: 'hello'
-},
-{
-	id: '2',
-	title: 'baz bo',
-	author: {name: 'baz'},
-	date: new Date('2012-01-03'),
-	excerpt: 'excerpt again',
-	body: 'hello again'
-}
-];
