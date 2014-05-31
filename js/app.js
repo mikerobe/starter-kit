@@ -200,6 +200,13 @@ App.PostController = Ember.ObjectController.extend({
 App.PostsFavoritesRoute = Ember.Route.extend({
 	model: function () {
 		return posts;
+	},
+	search: 'search value',
+	actions: {
+		query: function () {
+			console.log(this.store);
+			// alert("search is " + this.get('search'));
+		}
 	}
 });
 
