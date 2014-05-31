@@ -115,9 +115,18 @@
   <script type="text/x-handlebars" id="posts/favorites">
   <p>hello favorites {{foo}}</p>
   <p><button {{action 'showAlert' "hello world"}}>hello world</button></p>
+  <p>{{#confirmation-button action='confirmAction'}}do something requiring confirmation{{/confirmation-button}}</p>
   {{#each}}
     {{render 'post' this}}
   {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" id="components/confirmation-button">
+  {{#if showingConfirmation}}
+    <button {{action "confirm"}}>click again to confirm</button>
+  {{else}}
+    <button {{action "showConfirmation"}}>{{yield}}</button>
+  {{/if}}
   </script>
 
 

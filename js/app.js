@@ -208,6 +208,21 @@ App.PostsFavoritesController = Ember.ArrayController.extend({
 	actions: {
 		showAlert: function (text) {
 			alert(text || "default text");
+		},
+		confirmAction: function () {
+			alert("YAY CONFIRMED");
+		}
+	}
+});
+
+App.ConfirmationButtonComponent = Ember.Component.extend({
+	actions: {
+		showConfirmation: function () {
+			this.toggleProperty('showingConfirmation');
+		},
+		confirm: function () {
+			this.toggleProperty('showingConfirmation');
+			this.sendAction('action');
 		}
 	}
 });
