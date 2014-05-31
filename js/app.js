@@ -204,7 +204,12 @@ App.PostsFavoritesRoute = Ember.Route.extend({
 });
 
 App.PostsFavoritesController = Ember.ArrayController.extend({
-	foo: 'bar'
+	foo: 'bar',
+	actions: {
+		showAlert: function (text) {
+			alert(text || "default text");
+		}
+	}
 });
 
 // App.AuthorController = Ember.ObjectController.extend({
@@ -216,6 +221,10 @@ Ember.Handlebars.helper('date', function (date) {
 
 Ember.Handlebars.helper('marked', function (src) {
 	return new Handlebars.SafeString(marked(src));
+});
+
+App.ByAuthorComponent = Ember.Component.extend({
+	tagName: 'span'
 });
 
 
